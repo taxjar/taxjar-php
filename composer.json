@@ -1,0 +1,30 @@
+{
+  "name": "taxjar/taxjar-php",
+  "description": "TaxJar PHP Library",
+  "keywords": [
+    "taxjar",
+    "sales tax",
+    "api"
+  ],
+  "homepage": "http://taxjar.com/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "TaxJar and contributors"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "satooshi/php-coveralls": "~0.6.1",
+    "squizlabs/php_codesniffer": "~2.0"
+  },
+  "autoload": {
+    "psr-4": { "TaxJar\\" : "lib/" }
+  }
+}
