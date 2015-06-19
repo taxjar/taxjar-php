@@ -1,6 +1,6 @@
 # TaxJar Sales Tax API for PHP
 
-Official PHP wrapper for Sales Tax API v2. For REST documentation, please visit [http://developers.taxjar.com/api](http://developers.taxjar.com/api).
+Official PHP client for Sales Tax API v2. For the REST documentation, please visit [http://developers.taxjar.com/api](http://developers.taxjar.com/api).
 
 ## Requirements
 
@@ -36,10 +36,10 @@ $taxjar = TaxJar\Enhanced::withApiKey(YOUR_API_KEY);
 Get sales tax rates for a given location:
 
 ```php
-$rates = $taxjar->getLocationRates(90002, array(
+$rates = $taxjar->getLocationRates(90002, [
   'city' => 'LOS ANGELES',
   'country' => 'US'
-));
+]);
 
 echo $rates->combined_rate;
 // 0.09
@@ -48,7 +48,7 @@ echo $rates->combined_rate;
 Get sales tax that should be collected for a given order:
 
 ```php
-$order_taxes = $taxjar->getOrderTaxes(array(
+$order_taxes = $taxjar->getOrderTaxes([
   'from_country' => 'US',
   'from_zip' => '07001',
   'from_state' => 'NJ',
@@ -57,11 +57,13 @@ $order_taxes = $taxjar->getOrderTaxes(array(
   'to_state' => 'NJ',
   'amount' => 16.50,
   'shipping' => 1.5
-));
+]);
 
 echo $order_taxes->amount_to_collect;
 // 1.26
 ```
+
+*Note: These examples use short syntax for arrays (PHP 5.4).*
 
 ### Enhanced Endpoints
 
@@ -74,25 +76,25 @@ $tax_categories = $taxjar->getTaxCategories();
 Create a new order:
 
 ```php
-$response = $taxjar->createOrder(array());
+$response = $taxjar->createOrder([]);
 ```
 
 Update an existing order:
 
 ```php
-$response = $taxjar->updateOrder(array());
+$response = $taxjar->updateOrder([]);
 ```
 
 Create a new refund:
 
 ```php
-$response = $taxjar->createRefund(array());
+$response = $taxjar->createRefund([]);
 ```
 
 Update an existing refund:
 
 ```php
-$response = $taxjar->updateRefund(array());
+$response = $taxjar->updateRefund([]);
 ```
 
 ## Testing
