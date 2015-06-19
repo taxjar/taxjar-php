@@ -40,6 +40,7 @@ $rates = $taxjar->getLocationRates(90002, array(
   'city' => 'LOS ANGELES',
   'country' => 'US'
 ));
+
 echo $rates->combined_rate;
 // 0.09
 ```
@@ -57,6 +58,7 @@ $order_taxes = $taxjar->getOrderTaxes(array(
   'amount' => 16.50,
   'shipping' => 1.5
 ));
+
 echo $order_taxes->amount_to_collect;
 // 1.26
 ```
