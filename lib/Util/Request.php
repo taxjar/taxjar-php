@@ -32,6 +32,10 @@ class Request {
         $options[CURLOPT_POST] = true;
         $options[CURLOPT_POSTFIELDS] = $parameters;
         break;
+      case 'PUT':
+        $options[CURLOPT_CUSTOMREQUEST] = 'PUT';
+        $options[CURLOPT_POSTFIELDS] = $parameters;
+        break;
       default:
         $options[CURLOPT_CUSTOMREQUEST] = $method;
         if ($parameters) {
