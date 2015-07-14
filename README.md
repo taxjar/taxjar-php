@@ -17,26 +17,24 @@ Use Composer and add `taxjar-php` as a dependency:
 }
 ```
 
+## Authentication
+
+```php
+$taxjar = TaxJar\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
+```
+
 ## Usage
 
-Authenticating with the **Standard** API library:
+### List all tax categories
 
 ```php
-$taxjar = TaxJar\Standard::withApiKey(YOUR_API_KEY);
+$categories = $taxjar->categories();
 ```
 
-Authenticating with the **Enhanced** API library:
+### List tax rates for a location (by zip/postal code)
 
 ```php
-$taxjar = TaxJar\Enhanced::withApiKey(YOUR_API_KEY);
-```
-
-## Examples
-
-Get sales tax rates for a given location:
-
-```php
-$rates = $taxjar->getLocationRates(90002, [
+$rates = $taxjar->ratesForLocation(90002, [
   'city' => 'LOS ANGELES',
   'country' => 'US'
 ]);
@@ -45,10 +43,10 @@ echo $rates->combined_rate;
 // 0.09
 ```
 
-Get sales tax that should be collected for a given order:
+### Calculate sales tax for an order
 
 ```php
-$order_taxes = $taxjar->getOrderTaxes([
+$order_taxes = $taxjar->taxForOrder([
   'from_country' => 'US',
   'from_zip' => '07001',
   'from_state' => 'NJ',
@@ -63,39 +61,99 @@ echo $order_taxes->amount_to_collect;
 // 1.26
 ```
 
+### Create order transaction
+
+```php
+$order = $taxjar->createOrder([
+  'transaction_id' => '123',
+  'transaction_date' => '2015/05/14',
+  'to_country' => 'US',
+  'to_zip' => '90002',
+  'to_state' => 'CA',
+  'to_city' => 'Los Angeles',
+  'to_street' => '123 Palm Grove Ln',
+  'amount' => 17.45,
+  'shipping' => 1.5,
+  'sales_tax' => 0.95,
+  'line_items' => [
+    [
+      'quantity' => 1,
+      'product_identifier' => '12-34243-9',
+      'description' => 'Fuzzy Widget',
+      'unit_price' => 15.0,
+      'sales_tax' => 0.95
+    ]
+  ]
+]);
+```
+
+### Update order transaction
+
+```php
+$order = $taxjar->updateOrder([
+  'transaction_id' => '123',
+  'amount' => 17.95,
+  'shipping' => 2.0,
+  'line_items' => [
+    [
+      'quantity' => 1,
+      'product_identifier' => '12-34243-0',
+      'description' => 'Heavy Widget',
+      'unit_price' => 15.0,
+      'discount' => 0.0,
+      'sales_tax' => 0.95
+    ]
+  ]
+]);
+```
+
+### Create refund transaction
+
+```php
+$refund = $taxjar->createRefund([
+  'transaction_id' => '321',
+  'transaction_date' => '2015/05/14',
+  'transaction_reference_id' => '123',
+  'to_country' => 'US',
+  'to_zip' => '90002',
+  'to_state' => 'CA',
+  'to_city' => 'Los Angeles',
+  'to_street' => '123 Palm Grove Ln',
+  'amount' => 17.45,
+  'shipping' => 1.5,
+  'sales_tax' => 0.95,
+  'line_items' => [
+    [
+      'quantity' => 1,
+      'product_identifier' => '12-34243-9',
+      'description' => 'Fuzzy Widget',
+      'unit_price' => 15.0,
+      'sales_tax' => 0.95
+    ]
+  ]
+]);
+```
+
+### Update refund transaction
+
+```php
+$refund = $taxjar->updateRefund([
+  'transaction_id' => '321',
+  'amount' => 17.95,
+  'shipping' => 2.0,
+  'line_items' => [
+    [
+      'quantity' => 1,
+      'product_identifier' => '12-34243-0',
+      'description' => 'Heavy Widget',
+      'unit_price' => 15.0,
+      'sales_tax' => 0.95
+    ]
+  ]
+]);
+```
+
 *Note: These examples use short syntax for arrays (PHP 5.4).*
-
-### Enhanced Endpoints
-
-Get all tax categories:
-
-```php
-$tax_categories = $taxjar->getTaxCategories();
-```
-
-Create a new order:
-
-```php
-$response = $taxjar->createOrder([]);
-```
-
-Update an existing order:
-
-```php
-$response = $taxjar->updateOrder([]);
-```
-
-Create a new refund:
-
-```php
-$response = $taxjar->createRefund([]);
-```
-
-Update an existing refund:
-
-```php
-$response = $taxjar->updateRefund([]);
-```
 
 ## Testing
 
