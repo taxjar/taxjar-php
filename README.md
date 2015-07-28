@@ -125,7 +125,7 @@ $order = $taxjar->updateOrder([
 ### Delete order transaction
 
 ```php
-$order = $taxjar->deleteOrder('123');
+$taxjar->deleteOrder('123');
 ```
 
 ### List refund transactions
@@ -192,7 +192,7 @@ $refund = $taxjar->updateRefund([
 ### Delete refund transaction
 
 ```php
-$refund = $taxjar->deleteRefund('321');
+$taxjar->deleteRefund('321');
 ```
 
 *Note: These examples use short syntax for arrays (PHP 5.4).*
