@@ -61,6 +61,21 @@ echo $order_taxes->amount_to_collect;
 // 1.26
 ```
 
+### List order transactions
+
+```php
+$orders = $taxjar->listOrders([
+  'from_transaction_date' => '2014/01/01',
+  'to_transaction_date' => '2015/05/30'
+]);
+```
+
+### Show order transaction
+
+```php
+$order = $taxjar->showOrder('123');
+```
+
 ### Create order transaction
 
 ```php
@@ -107,6 +122,27 @@ $order = $taxjar->updateOrder([
 ]);
 ```
 
+### Delete order transaction
+
+```php
+$taxjar->deleteOrder('123');
+```
+
+### List refund transactions
+
+```php
+$refunds = $taxjar->listRefunds([
+  'from_transaction_date' => '2014/01/01',
+  'to_transaction_date' => '2015/05/30'
+]);
+```
+
+### Show refund transaction
+
+```php
+$refund = $taxjar->showRefund('321');
+```
+
 ### Create refund transaction
 
 ```php
@@ -151,6 +187,12 @@ $refund = $taxjar->updateRefund([
     ]
   ]
 ]);
+```
+
+### Delete refund transaction
+
+```php
+$taxjar->deleteRefund('321');
 ```
 
 *Note: These examples use short syntax for arrays (PHP 5.4).*
