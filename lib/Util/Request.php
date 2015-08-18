@@ -10,7 +10,11 @@ class Request {
 
   public function send($method, $url, $parameters = array(), $headers = array()) {
     if (is_array($parameters) || is_object($parameters)) {
-      $parameters = http_build_query($parameters);
+      if ($headers['Content-Type'] == 'application/json') {
+        $parameters = json_encode($parameters);
+      } else {
+        $parameters = http_build_query($parameters);
+      }
     }
 
     $httpHeaders = array();

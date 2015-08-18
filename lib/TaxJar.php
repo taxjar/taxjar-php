@@ -10,8 +10,10 @@ class TaxJar {
     $this->setApiKey($key);
   }
 
-  protected function authHeaders() {
+  protected function headers() {
     $headers = array();
+    
+    $headers['Content-Type'] = 'application/json';
 
     if ($this->api_key) {
       $headers['Authorization'] = 'Bearer ' . $this->api_key;
