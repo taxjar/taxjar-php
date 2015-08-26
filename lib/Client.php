@@ -2,7 +2,7 @@
 namespace TaxJar;
 
 class Client extends TaxJar {
-  public function withApiKey($key) {
+  public static function withApiKey($key) {
     return new Client($key);
   }
 
