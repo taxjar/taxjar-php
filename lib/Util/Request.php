@@ -43,7 +43,7 @@ class Request {
       default:
         $options[CURLOPT_CUSTOMREQUEST] = $method;
         if ($parameters) {
-          $url .= '/?' . $parameters;
+          $url .= '/?' . urlencode($parameters);
         }
         break;
     }
