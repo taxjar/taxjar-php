@@ -17,6 +17,6 @@ class RateTest extends TaxJarTest {
     
     $response = $this->client->ratesForLocation(90002);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/rates.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/rates.json', json_encode(["rate" => $response]));
   }
 }

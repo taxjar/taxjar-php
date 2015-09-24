@@ -20,7 +20,7 @@ class TransactionTest extends TaxJarTest {
       'to_transaction_date' => '2015/05/31'
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/list.json', json_encode( $response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/list.json', json_encode(["orders" => $response]));
   }
   
   public function test_show_order() {
@@ -36,7 +36,7 @@ class TransactionTest extends TaxJarTest {
     
     $response = $this->client->showOrder(123);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode( $response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode(["order" => $response]));
   }
   
   public function test_create_order() {
@@ -72,7 +72,7 @@ class TransactionTest extends TaxJarTest {
       ]
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode(["order" => $response]));
   }
   
   public function test_update_order() {
@@ -102,7 +102,7 @@ class TransactionTest extends TaxJarTest {
       ]
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode(["order" => $response]));
   }
   
   public function test_delete_order() {
@@ -118,7 +118,7 @@ class TransactionTest extends TaxJarTest {
     
     $response = $this->client->deleteOrder(123);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode(["order" => $response]));
   }
   
   public function test_list_refunds() {
@@ -137,7 +137,7 @@ class TransactionTest extends TaxJarTest {
       'to_transaction_date' => '2015/05/31'
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/list.json', json_encode( $response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/list.json', json_encode(["refunds" => $response]));
   }
   
   public function test_show_refund() {
@@ -153,7 +153,7 @@ class TransactionTest extends TaxJarTest {
     
     $response = $this->client->showRefund(321);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode( $response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode(["refund" => $response]));
   }
   
   public function test_create_refund() {
@@ -190,7 +190,7 @@ class TransactionTest extends TaxJarTest {
       ]
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode( $response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode(["refund" => $response]));
   }
   
   public function test_update_refund() {
@@ -219,7 +219,7 @@ class TransactionTest extends TaxJarTest {
       ]
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode(["refund" => $response]));
   }
   
   public function test_delete_refund() {
@@ -234,7 +234,7 @@ class TransactionTest extends TaxJarTest {
     $this->http->setUp();
     
     $response = $this->client->deleteRefund(321);
-    
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode($response));
+
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode(["refund" => $response]));
   }
 }

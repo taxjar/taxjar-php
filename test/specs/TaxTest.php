@@ -26,6 +26,6 @@ class TaxTest extends TaxJarTest {
       'shipping' => 1.5
     ]);
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/taxes.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/taxes.json', json_encode(["tax" => $response]));
   }
 }

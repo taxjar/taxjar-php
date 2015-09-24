@@ -17,6 +17,6 @@ class CategoryTest extends TaxJarTest {
     
     $response = $this->client->categories();
     
-    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/categories.json', json_encode($response));
+    $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/categories.json', json_encode(["categories" => $response]));
   }
 }
