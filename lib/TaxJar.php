@@ -2,31 +2,37 @@
 namespace TaxJar;
 
 class TaxJar {
-  protected $api_key;
-  protected $request;
+  protected $client;
+  protected $config;
 
   public function __construct($key) {
-    $this->request = new Util\Request();
-    $this->setApiKey($key);
-  }
-
-  protected function headers() {
-    $headers = array();
-    
-    $headers['Content-Type'] = 'application/json';
-
-    if ($this->api_key) {
-      $headers['Authorization'] = 'Bearer ' . $this->api_key;
+    if ($key) {
+      $this->config = [
+        'base_uri' => 'https://api.taxjar.com/v2/',
+        'headers' => [
+          'Authorization' => 'Bearer ' . $key
+        ]
+      ];
+      $this->client = new \GuzzleHttp\Client($this->config);
+    } else {
+      throw new Exception('Please provide an API key.');
     }
-
-    return $headers;
+  }
+  
+  private function refreshClient($config) {
+    $this->client = new \GuzzleHttp\Client($config);
   }
 
-  public function getApiKey() {
-    return $this->api_key;
+  public function setApiConfig($index, $value) {
+    $this->config[$index] = $value;
+    $this->refreshClient($this->config);
   }
-
-  public function setApiKey($api_key) {
-    $this->api_key = $api_key;
+  
+  public function getApiConfig($index) {
+    if ($index) {
+      return $this->config[$index];
+    } else {
+      return $this->config;
+    }
   }
 }

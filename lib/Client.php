@@ -17,10 +17,8 @@ class Client extends TaxJar {
    * @return object Collection of tax categories.
    */
   public function categories() {
-    $headers = $this->headers();
-    $response = $this->request->api('GET', '/v2/categories', null, $headers);
-
-    return $response['body'];
+    $response = $this->client->get('categories');
+    return json_decode($response->getBody())->categories;
   }
 
   /**
@@ -32,11 +30,11 @@ class Client extends TaxJar {
    *
    * @return object Detailed rates for a specific location.
    */
-  public function ratesForLocation($zip, $parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('GET', '/v2/rates/' . $zip, $parameters, $headers);
-
-    return $response['body']->rate;
+  public function ratesForLocation($zip, $parameters = []) {
+    $response = $this->client->get('rates/' . $zip, [
+      'query' => $parameters
+    ]);
+    return json_decode($response->getBody())->rate;
   }
 
   /**
@@ -47,11 +45,11 @@ class Client extends TaxJar {
    *
    * @return object Detailed sales tax breakdown for an order.
    */
-  public function taxForOrder($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('POST', '/v2/taxes', $parameters, $headers);
-
-    return $response['body']->tax;
+  public function taxForOrder($parameters = []) {
+    $response = $this->client->post('taxes', [
+      'json' => $parameters
+    ]);
+    return json_decode($response->getBody())->tax;
   }
 
   /**
@@ -62,11 +60,11 @@ class Client extends TaxJar {
    *
    * @return object Order collection.
    */
-  public function listOrders($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('GET', '/v2/transactions/orders', $parameters, $headers);
-
-    return $response['body'];
+  public function listOrders($parameters = []) {
+    $response = $this->client->get('transactions/orders', [
+      'query' => $parameters
+    ]);
+    return json_decode($response->getBody())->orders;
   }
 
   /**
@@ -77,11 +75,9 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function showOrder($transaction_id) {
-    $headers = $this->headers();    
-    $response = $this->request->api('GET', '/v2/transactions/orders/' . $transaction_id, null, $headers);
-
-    return $response['body'];
+  public function showOrder($transaction_id) {  
+    $response = $this->client->get('transactions/orders/' . $transaction_id);
+    return json_decode($response->getBody())->order;
   }
 
   /**
@@ -92,11 +88,11 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function createOrder($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('POST', '/v2/transactions/orders', $parameters, $headers);
-
-    return $response['body'];
+  public function createOrder($parameters = []) {
+    $response = $this->client->post('transactions/orders', [
+      'json' => $parameters
+    ]);
+    return json_decode($response->getBody())->order;
   }
 
   /**
@@ -108,11 +104,11 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function updateOrder($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('PUT', '/v2/transactions/orders/' . $parameters['transaction_id'], $parameters, $headers);
-
-    return $response['body'];
+  public function updateOrder($parameters = []) {
+    $response = $this->client->put('transactions/orders/' . $parameters['transaction_id'], [
+      'json' => $parameters
+    ]);
+    return json_decode($response->getBody())->order;
   }
 
   /**
@@ -124,10 +120,8 @@ class Client extends TaxJar {
    * @return object Order object.
    */
   public function deleteOrder($transaction_id) {
-    $headers = $this->headers();
-    $response = $this->request->api('DELETE', '/v2/transactions/orders/' . $transaction_id, null, $headers);
-
-    return $response['body'];
+    $response = $this->client->delete('transactions/orders/' . $transaction_id);
+    return json_decode($response->getBody())->order;
   }
 
   /**
@@ -138,11 +132,11 @@ class Client extends TaxJar {
    *
    * @return object Refund collection.
    */
-  public function listRefunds($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('GET', '/v2/transactions/refunds', $parameters, $headers);
-
-    return $response['body'];
+  public function listRefunds($parameters = []) {
+    $response = $this->client->get('transactions/refunds', [
+      'query' => $parameters
+    ]);
+    return json_decode($response->getBody())->refunds;
   }
 
   /**
@@ -154,10 +148,8 @@ class Client extends TaxJar {
    * @return object Refund object.
    */
   public function showRefund($transaction_id) {
-    $headers = $this->headers();
-    $response = $this->request->api('GET', '/v2/transactions/refunds/' . $transaction_id, null, $headers);
-
-    return $response['body'];
+    $response = $this->client->get('transactions/refunds/' . $transaction_id);
+    return json_decode($response->getBody())->refund;
   }
 
   /**
@@ -168,11 +160,11 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function createRefund($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('POST', '/v2/transactions/refunds', $parameters, $headers);
-
-    return $response['body'];
+  public function createRefund($parameters = []) {
+    $response = $this->client->post('transactions/refunds', [
+      'json' => $parameters
+    ]);
+    return json_decode($response->getBody())->refund;
   }
 
   /**
@@ -183,11 +175,11 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function updateRefund($parameters = array()) {
-    $headers = $this->headers();
-    $response = $this->request->api('PUT', '/v2/transactions/refunds/' . $parameters['transaction_id'], $parameters, $headers);
-
-    return $response['body'];
+  public function updateRefund($parameters = []) {
+    $response = $this->client->put('transactions/refunds/' . $parameters['transaction_id'], [
+      'json' => $parameters
+    ]);
+    return json_decode($response->getBody())->refund;
   }
 
   /**
@@ -199,9 +191,7 @@ class Client extends TaxJar {
    * @return object Refund object.
    */
   public function deleteRefund($transaction_id) {
-    $headers = $this->headers();
-    $response = $this->request->api('DELETE', '/v2/transactions/refunds/' . $transaction_id, null, $headers);
-
-    return $response['body'];
+    $response = $this->client->delete('transactions/refunds/' . $transaction_id);
+    return json_decode($response->getBody())->refund;
   }
 }
