@@ -7,12 +7,13 @@ class TaxJar {
 
   public function __construct($key) {
     if ($key) {
-      $this->client = new \GuzzleHttp\Client([
+      $this->config = [
         'base_uri' => 'https://api.taxjar.com/v2/',
         'headers' => [
           'Authorization' => 'Bearer ' . $key
         ]
-      ]);
+      ];
+      $this->client = new \GuzzleHttp\Client($this->config);
     } else {
       throw new Exception('Please provide an API key.');
     }

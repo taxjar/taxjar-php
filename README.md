@@ -195,8 +195,6 @@ $refund = $taxjar->updateRefund([
 $taxjar->deleteRefund('321');
 ```
 
-*Note: These examples use short syntax for arrays (PHP 5.4).*
-
 ## Testing
 
 Make sure PHPUnit is installed via `composer install` and run the following:
