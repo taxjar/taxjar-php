@@ -4,8 +4,8 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 
 ## Requirements
 
-- PHP 5.3.3 and later.
-- PHP [cURL extension](http://php.net/manual/en/book.curl.php)
+- PHP 5.5.0 and later.
+- [Guzzle](https://github.com/guzzle/guzzle) (included via Composer).
 
 ## Installation
 
@@ -199,4 +199,8 @@ $taxjar->deleteRefund('321');
 
 ## Testing
 
-Working on it :-)
+Make sure PHPUnit is installed via `composer install` and run the following:
+
+```
+php vendor/bin/phpunit ./test/specs/.
+```
