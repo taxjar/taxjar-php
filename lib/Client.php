@@ -108,9 +108,9 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function updateOrder($transaction_id, $parameters = array()) {
+  public function updateOrder($parameters = array()) {
     $headers = $this->headers();
-    $response = $this->request->api('PUT', '/v2/transactions/orders/' . $transaction_id, $parameters, $headers);
+    $response = $this->request->api('PUT', '/v2/transactions/orders/' . $parameters['transaction_id'], $parameters, $headers);
 
     return $response['body'];
   }
@@ -183,9 +183,9 @@ class Client extends TaxJar {
    *
    * @return object Order object.
    */
-  public function updateRefund($transaction_id, $parameters = array()) {
+  public function updateRefund($parameters = array()) {
     $headers = $this->headers();
-    $response = $this->request->api('PUT', '/v2/transactions/refunds/' . $transaction_id, $parameters, $headers);
+    $response = $this->request->api('PUT', '/v2/transactions/refunds/' . $parameters['transaction_id'], $parameters, $headers);
 
     return $response['body'];
   }
