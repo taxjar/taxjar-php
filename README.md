@@ -200,7 +200,7 @@ $taxjar->deleteRefund('321');
 Make sure PHPUnit is installed via `composer install` and run the following:
 
 ```
-php vendor/bin/phpunit ./test/specs/.
+php vendor/bin/phpunit test/specs/.
 ```
 
 To enable debug mode, set the following config parameter after authenticating:
