@@ -32,7 +32,7 @@ class Client extends TaxJar {
    */
   public function ratesForLocation($zip, $parameters = []) {
     $response = $this->client->get('rates/' . $zip, [
-      'json' => $parameters
+      'query' => $parameters
     ]);
     return json_decode($response->getBody())->rate;
   }
@@ -62,7 +62,7 @@ class Client extends TaxJar {
    */
   public function listOrders($parameters = []) {
     $response = $this->client->get('transactions/orders', [
-      'json' => $parameters
+      'query' => $parameters
     ]);
     return json_decode($response->getBody())->orders;
   }
@@ -134,7 +134,7 @@ class Client extends TaxJar {
    */
   public function listRefunds($parameters = []) {
     $response = $this->client->get('transactions/refunds', [
-      'json' => $parameters
+      'query' => $parameters
     ]);
     return json_decode($response->getBody())->refunds;
   }

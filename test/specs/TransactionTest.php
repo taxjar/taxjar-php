@@ -8,7 +8,7 @@ class TransactionTest extends TaxJarTest {
     $this->http->mock
         ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/orders')
+            ->pathIs('/transactions/orders?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
         ->then()
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/list.json"))
         ->end();
@@ -125,7 +125,7 @@ class TransactionTest extends TaxJarTest {
     $this->http->mock
         ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/refunds')
+            ->pathIs('/transactions/refunds?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
         ->then()
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/list.json"))
         ->end();
