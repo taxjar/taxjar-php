@@ -15,7 +15,7 @@ class TaxJar {
       ];
       $this->client = new \GuzzleHttp\Client($this->config);
     } else {
-      throw new Exception('Please provide an API key.');
+      throw new \Exception('Please provide an API key.');
     }
   }
   
