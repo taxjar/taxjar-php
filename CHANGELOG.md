@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.2 - 2015-09-28
+
+* Bug fix: Use global namespace for exception when no API token is provided. Added new test.
+
 ## 1.2.1 - 2015-09-24
 
 * Client now uses Guzzle for HTTP requests.
