@@ -9,14 +9,29 @@ class TaxJar {
     if ($key) {
       $this->config = [
         'base_uri' => 'https://api.taxjar.com/v2/',
+        'handler' => $this->errorHandler(),
         'headers' => [
           'Authorization' => 'Bearer ' . $key
         ]
       ];
       $this->client = new \GuzzleHttp\Client($this->config);
     } else {
-      throw new \Exception('Please provide an API key.');
+      throw new Exception('Please provide an API key.');
     }
+  }
+  
+  private function errorHandler() {
+    $handler = \GuzzleHttp\HandlerStack::create();
+    $handler->push(\GuzzleHttp\Middleware::mapResponse(function($response) {
+      if ($response->getStatusCode() != 200) {
+        $data = json_decode($response->getBody());
+        throw new Exception(sprintf('%s %s – %s', $response->getStatusCode(), $data->error, $data->detail));
+      }
+      
+      return $response;
+    }));
+    
+    return $handler;
   }
   
   private function refreshClient($config) {
