@@ -23,7 +23,7 @@ class TaxJar {
   private function errorHandler() {
     $handler = \GuzzleHttp\HandlerStack::create();
     $handler->push(\GuzzleHttp\Middleware::mapResponse(function($response) {
-      if ($response->getStatusCode() != 200) {
+      if ($response->getStatusCode() >= 400) {
         $data = json_decode($response->getBody());
         throw new Exception(sprintf('%s %s – %s', $response->getStatusCode(), $data->error, $data->detail));
       }
