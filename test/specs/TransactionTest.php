@@ -10,6 +10,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('GET')
             ->pathIs('/transactions/orders?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/list.json"))
         ->end();
 
@@ -29,6 +30,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('GET')
             ->pathIs('/transactions/orders/123')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
         ->end();
 
@@ -45,6 +47,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('POST')
             ->pathIs('/transactions/orders')
         ->then()
+            ->statusCode(201)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
         ->end();
 
@@ -81,6 +84,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('PUT')
             ->pathIs('/transactions/orders/123')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
         ->end();
 
@@ -111,6 +115,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('DELETE')
             ->pathIs('/transactions/orders/123')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
         ->end();
 
@@ -127,6 +132,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('GET')
             ->pathIs('/transactions/refunds?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/list.json"))
         ->end();
 
@@ -146,6 +152,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('GET')
             ->pathIs('/transactions/refunds/321')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
         ->end();
 
@@ -162,6 +169,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('POST')
             ->pathIs('/transactions/refunds')
         ->then()
+            ->statusCode(201)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
         ->end();
 
@@ -199,6 +207,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('PUT')
             ->pathIs('/transactions/refunds/321')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
         ->end();
 
@@ -228,6 +237,7 @@ class TransactionTest extends TaxJarTest {
             ->methodIs('DELETE')
             ->pathIs('/transactions/refunds/321')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
         ->end();
 

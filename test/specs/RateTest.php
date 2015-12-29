@@ -10,6 +10,7 @@ class RateTest extends TaxJarTest {
             ->methodIs('GET')
             ->pathIs('/rates/90002')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/rates.json"))
         ->end();
 
