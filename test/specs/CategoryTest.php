@@ -10,6 +10,7 @@ class CategoryTest extends TaxJarTest {
             ->methodIs('GET')
             ->pathIs('/categories')
         ->then()
+            ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/categories.json"))
         ->end();
 
