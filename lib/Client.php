@@ -194,4 +194,30 @@ class Client extends TaxJar {
     $response = $this->client->delete('transactions/refunds/' . $transaction_id);
     return json_decode($response->getBody())->refund;
   }
+  
+  /**
+   * Validate a VAT number
+   * http://developers.taxjar.com/api/reference/?php#get-validate-a-vat-number
+   *
+   * @param array $parameters
+   *
+   * @return object Validation object.
+   */
+  public function validate($parameters = []) {
+    $response = $this->client->get('validation', [
+      'query' => $parameters
+    ]);
+    return json_decode($response->getBody())->validation;
+  }
+  
+  /**
+   * Summarize tax rates for all regions
+   * http://developers.taxjar.com/api/reference/?php#get-summarize-tax-rates-for-all-regions
+   *
+   * @return object Collection of summarized rates.
+   */
+  public function summaryRates() {
+    $response = $this->client->get('summary_rates');
+    return json_decode($response->getBody())->summary_rates;
+  }
 }

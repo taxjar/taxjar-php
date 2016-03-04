@@ -202,6 +202,20 @@ $refund = $taxjar->updateRefund([
 $taxjar->deleteRefund('321');
 ```
 
+### Validate a VAT number
+
+```php
+$validation = $taxjar->validate([
+  'vat' => 'FR40303265045'
+]);
+```
+
+### Summarize tax rates for all regions
+
+```php
+$summarized_rates = $taxjar->summaryRates();
+```
+
 ## Testing
 
 Make sure PHPUnit is installed via `composer install` and run the following:

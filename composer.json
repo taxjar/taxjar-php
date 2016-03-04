@@ -19,7 +19,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "4.8.*",
-    "internations/http-mock": "dev-master"
+    "internations/http-mock": "0.7.4"
   },
   "autoload": {
     "psr-4": { "TaxJar\\" : "lib/" }
