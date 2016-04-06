@@ -12,8 +12,14 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 Use Composer and add `taxjar-php` as a dependency:
 
 ```
-"require": {
-  "taxjar/taxjar-php": "*"
+composer require taxjar/taxjar-php
+```
+
+```
+{
+  "require": {
+    "taxjar/taxjar-php": "^1.3"
+  }
 }
 ```
 
