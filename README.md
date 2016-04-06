@@ -15,7 +15,7 @@ Use Composer and add `taxjar-php` as a dependency:
 composer require taxjar/taxjar-php
 ```
 
-```
+```json
 {
   "require": {
     "taxjar/taxjar-php": "^1.3"
