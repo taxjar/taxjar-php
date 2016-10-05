@@ -12,7 +12,7 @@ class Client extends TaxJar {
 
   /**
    * Get tax categories
-   * http://developers.taxjar.com/api/?php#list-tax-categories
+   * https://developers.taxjar.com/api/?php#list-tax-categories
    *
    * @return object Collection of tax categories.
    */
@@ -23,7 +23,7 @@ class Client extends TaxJar {
 
   /**
    * Get tax rates for a location
-   * http://developers.taxjar.com/api/?php#show-tax-rates-for-a-location
+   * https://developers.taxjar.com/api/?php#show-tax-rates-for-a-location
    *
    * @param int $zip
    * @param array $parameters
@@ -39,7 +39,7 @@ class Client extends TaxJar {
 
   /**
    * Get sales tax for an order
-   * http://developers.taxjar.com/api/?php#calculate-sales-tax-for-an-order
+   * https://developers.taxjar.com/api/?php#calculate-sales-tax-for-an-order
    *
    * @param array $parameters
    *
@@ -54,7 +54,7 @@ class Client extends TaxJar {
 
   /**
    * List order transactions
-   * http://developers.taxjar.com/api/?php#list-order-transactions
+   * https://developers.taxjar.com/api/?php#list-order-transactions
    *
    * @param array $parameters
    *
@@ -69,7 +69,7 @@ class Client extends TaxJar {
 
   /**
    * Show order transaction
-   * http://developers.taxjar.com/api/?php#show-an-order-transaction
+   * https://developers.taxjar.com/api/?php#show-an-order-transaction
    *
    * @param integer $transaction_id
    *
@@ -82,7 +82,7 @@ class Client extends TaxJar {
 
   /**
    * Create a new order transaction
-   * http://developers.taxjar.com/api/?php#create-an-order-transaction
+   * https://developers.taxjar.com/api/?php#create-an-order-transaction
    *
    * @param array $parameters
    *
@@ -97,7 +97,7 @@ class Client extends TaxJar {
 
   /**
    * Update an existing order transaction
-   * http://developers.taxjar.com/api/?php#update-an-order-transaction
+   * https://developers.taxjar.com/api/?php#update-an-order-transaction
    *
    * @param integer @transaction_id
    * @param array $parameters
@@ -113,7 +113,7 @@ class Client extends TaxJar {
 
   /**
    * Delete an existing order transaction
-   * http://developers.taxjar.com/api/?php#delete-an-order-transaction
+   * https://developers.taxjar.com/api/?php#delete-an-order-transaction
    *
    * @param integer $transaction_id
    *
@@ -126,7 +126,7 @@ class Client extends TaxJar {
 
   /**
    * List refund transactions
-   * http://developers.taxjar.com/api/?php#list-refund-transactions
+   * https://developers.taxjar.com/api/?php#list-refund-transactions
    *
    * @param array $parameters
    *
@@ -141,7 +141,7 @@ class Client extends TaxJar {
 
   /**
    * Show refund transaction
-   * http://developers.taxjar.com/api/?php#show-a-refund-transaction
+   * https://developers.taxjar.com/api/?php#show-a-refund-transaction
    *
    * @param integer $transaction_id
    *
@@ -154,7 +154,7 @@ class Client extends TaxJar {
 
   /**
    * Create a new refund transaction
-   * http://developers.taxjar.com/api/?php#create-an-refund-transaction
+   * https://developers.taxjar.com/api/?php#create-an-refund-transaction
    *
    * @param array $parameters
    *
@@ -169,7 +169,7 @@ class Client extends TaxJar {
 
   /**
    * Update an order transaction
-   * http://developers.taxjar.com/api/?php#update-an-refund-transaction
+   * https://developers.taxjar.com/api/?php#update-an-refund-transaction
    *
    * @param array $parameters
    *
@@ -184,7 +184,7 @@ class Client extends TaxJar {
 
   /**
    * Delete an existing refund transaction
-   * http://developers.taxjar.com/api/?php#delete-a-refund-transaction
+   * https://developers.taxjar.com/api/?php#delete-a-refund-transaction
    *
    * @param integer $transaction_id
    *
@@ -208,7 +208,7 @@ class Client extends TaxJar {
   
   /**
    * Validate a VAT number
-   * http://developers.taxjar.com/api/reference/?php#get-validate-a-vat-number
+   * https://developers.taxjar.com/api/reference/?php#get-validate-a-vat-number
    *
    * @param array $parameters
    *
@@ -223,7 +223,7 @@ class Client extends TaxJar {
   
   /**
    * Summarize tax rates for all regions
-   * http://developers.taxjar.com/api/reference/?php#get-summarize-tax-rates-for-all-regions
+   * https://developers.taxjar.com/api/reference/?php#get-summarize-tax-rates-for-all-regions
    *
    * @return object Collection of summarized rates.
    */
