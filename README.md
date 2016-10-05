@@ -208,6 +208,12 @@ $refund = $taxjar->updateRefund([
 $taxjar->deleteRefund('321');
 ```
 
+### List nexus regions
+
+```php
+$nexus_regions = $taxjar->nexusRegions();
+```
+
 ### Validate a VAT number
 
 ```php
