@@ -196,6 +196,17 @@ class Client extends TaxJar {
   }
   
   /**
+   * Get nexus regions
+   * https://developers.taxjar.com/api/reference/?php#get-list-nexus-regions
+   *
+   * @return object Collection of nexus regions.
+   */
+  public function nexusRegions() {
+    $response = $this->client->get('nexus/regions');
+    return json_decode($response->getBody())->regions;
+  }
+  
+  /**
    * Validate a VAT number
    * http://developers.taxjar.com/api/reference/?php#get-validate-a-vat-number
    *
