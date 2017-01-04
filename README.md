@@ -18,10 +18,12 @@ composer require taxjar/taxjar-php
 ```json
 {
   "require": {
-    "taxjar/taxjar-php": "^1.3"
+    "taxjar/taxjar-php": "^1.4"
   }
 }
 ```
+
+If you get an error with `composer require`, update your `composer.json` directly and run `composer update`.
 
 ## Authentication
 
