@@ -25,7 +25,7 @@ class TaxJar {
     $handler->push(\GuzzleHttp\Middleware::mapResponse(function($response) {
       if ($response->getStatusCode() >= 400) {
         $data = json_decode($response->getBody());
-        throw new Exception(sprintf('%s %s – %s', $response->getStatusCode(), $data->error, $data->detail));
+        throw new Exception(sprintf('%s %s – %s', $response->getStatusCode(), $data->error, $data->detail), $response->getStatusCode());
       }
       
       return $response;
