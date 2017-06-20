@@ -28,7 +28,8 @@ If you get an error with `composer require`, update your `composer.json` directl
 ## Authentication
 
 ```php
-$taxjar = TaxJar\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
+require __DIR__ . '/vendor/autoload.php';
+$client = TaxJar\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
 ```
 
 ## Usage
@@ -36,13 +37,13 @@ $taxjar = TaxJar\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
 ### List all tax categories
 
 ```php
-$categories = $taxjar->categories();
+$categories = $client->categories();
 ```
 
 ### List tax rates for a location (by zip/postal code)
 
 ```php
-$rates = $taxjar->ratesForLocation(90002, [
+$rates = $client->ratesForLocation(90002, [
   'city' => 'LOS ANGELES',
   'country' => 'US'
 ]);
@@ -54,7 +55,7 @@ echo $rates->combined_rate;
 ### Calculate sales tax for an order
 
 ```php
-$order_taxes = $taxjar->taxForOrder([
+$order_taxes = $client->taxForOrder([
   'from_country' => 'US',
   'from_zip' => '07001',
   'from_state' => 'NJ',
@@ -79,7 +80,7 @@ echo $order_taxes->amount_to_collect;
 ### List order transactions
 
 ```php
-$orders = $taxjar->listOrders([
+$orders = $client->listOrders([
   'from_transaction_date' => '2014/01/01',
   'to_transaction_date' => '2015/05/30'
 ]);
@@ -88,13 +89,13 @@ $orders = $taxjar->listOrders([
 ### Show order transaction
 
 ```php
-$order = $taxjar->showOrder('123');
+$order = $client->showOrder('123');
 ```
 
 ### Create order transaction
 
 ```php
-$order = $taxjar->createOrder([
+$order = $client->createOrder([
   'transaction_id' => '123',
   'transaction_date' => '2015/05/14',
   'to_country' => 'US',
@@ -120,7 +121,7 @@ $order = $taxjar->createOrder([
 ### Update order transaction
 
 ```php
-$order = $taxjar->updateOrder([
+$order = $client->updateOrder([
   'transaction_id' => '123',
   'amount' => 17.95,
   'shipping' => 2.0,
@@ -140,13 +141,13 @@ $order = $taxjar->updateOrder([
 ### Delete order transaction
 
 ```php
-$taxjar->deleteOrder('123');
+$client->deleteOrder('123');
 ```
 
 ### List refund transactions
 
 ```php
-$refunds = $taxjar->listRefunds([
+$refunds = $client->listRefunds([
   'from_transaction_date' => '2014/01/01',
   'to_transaction_date' => '2015/05/30'
 ]);
@@ -155,13 +156,13 @@ $refunds = $taxjar->listRefunds([
 ### Show refund transaction
 
 ```php
-$refund = $taxjar->showRefund('321');
+$refund = $client->showRefund('321');
 ```
 
 ### Create refund transaction
 
 ```php
-$refund = $taxjar->createRefund([
+$refund = $client->createRefund([
   'transaction_id' => '321',
   'transaction_date' => '2015/05/14',
   'transaction_reference_id' => '123',
@@ -188,7 +189,7 @@ $refund = $taxjar->createRefund([
 ### Update refund transaction
 
 ```php
-$refund = $taxjar->updateRefund([
+$refund = $client->updateRefund([
   'transaction_id' => '321',
   'amount' => 17.95,
   'shipping' => 2.0,
@@ -207,19 +208,19 @@ $refund = $taxjar->updateRefund([
 ### Delete refund transaction
 
 ```php
-$taxjar->deleteRefund('321');
+$client->deleteRefund('321');
 ```
 
 ### List nexus regions
 
 ```php
-$nexus_regions = $taxjar->nexusRegions();
+$nexus_regions = $client->nexusRegions();
 ```
 
 ### Validate a VAT number
 
 ```php
-$validation = $taxjar->validate([
+$validation = $client->validate([
   'vat' => 'FR40303265045'
 ]);
 ```
@@ -227,8 +228,38 @@ $validation = $taxjar->validate([
 ### Summarize tax rates for all regions
 
 ```php
-$summarized_rates = $taxjar->summaryRates();
+$summarized_rates = $client->summaryRates();
 ```
+
+## Error Handling
+
+When invalid data is sent to TaxJar or we encounter an error, we’ll throw a `TaxJar\Exception` with the HTTP status code and error message. To catch these exceptions, refer to the example below:
+
+```php
+require __DIR__ . '/vendor/autoload.php';
+$client = TaxJar\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
+
+try {
+  // Invalid request
+  $order = $client->createOrder([
+    'transaction_date' => '2015/05/14',
+    'to_country' => 'US',
+    'to_zip' => '90002',
+    'to_state' => 'CA',
+    'amount' => 16.5,
+    'shipping' => 1.5,
+    'sales_tax' => 0.95
+  ]);
+} catch (TaxJar\Exception $e) {
+  // 406 Not Acceptable – transaction_id is missing
+  echo $e->getMessage();
+
+  // 406
+  echo $e->getStatusCode();
+}
+```
+
+For a full list of error codes, [click here](https://developers.taxjar.com/api/reference/#errors).
 
 ## Testing
 
@@ -241,5 +272,5 @@ php vendor/bin/phpunit test/specs/.
 To enable debug mode, set the following config parameter after authenticating:
 
 ```php
-$taxjar->setApiConfig('debug', true);
+$client->setApiConfig('debug', true);
 ```
