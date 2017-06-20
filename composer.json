@@ -1,16 +1,16 @@
 {
   "name": "taxjar/taxjar-php",
-  "description": "TaxJar PHP Library",
+  "description": "Sales Tax API Client for PHP 5.5+",
   "keywords": [
     "taxjar",
     "sales tax",
     "api"
   ],
-  "homepage": "http://taxjar.com/",
+  "homepage": "https://www.taxjar.com/",
   "license": "MIT",
   "authors": [
     {
-      "name": "TaxJar and contributors"
+      "name": "TaxJar"
     }
   ],
   "require": {
