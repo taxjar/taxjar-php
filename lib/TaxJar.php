@@ -52,12 +52,25 @@ class TaxJar
 
     public function setApiConfig($index, $value)
     {
+        if ($index == 'api_url') {
+            $index = 'base_uri';
+            $value .= '/' . self::API_VERSION . '/';
+        }
+
+        if ($index == 'headers') {
+            $value = array_merge($this->config[$index], $value);
+        }
+
         $this->config[$index] = $value;
         $this->refreshClient($this->config);
     }
 
     public function getApiConfig($index)
     {
+        if ($index == 'api_url') {
+            $index = 'base_uri';
+        }
+
         if ($index) {
             return $this->config[$index];
         } else {
