@@ -32,6 +32,22 @@ require __DIR__ . '/vendor/autoload.php';
 $client = TaxJar\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
 ```
 
+## Sandbox Environment
+
+You can easily configure the client to use the TaxJar Sandbox:
+
+```php
+$client->setApiConfig('api_url', TaxJar\Client::SANDBOX_API_URL);
+```
+
+For testing specific [response codes](https://developers.taxjar.com/api/reference/#errors), pass the custom `X-TJ-Expected-Response` header:
+
+```php
+$client->setApiConfig('headers', [
+  'X-TJ-Expected-Response' => 422
+]);
+```
+
 ## Usage
 
 ### List all tax categories
