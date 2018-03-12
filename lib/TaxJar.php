@@ -18,6 +18,7 @@ class TaxJar
                 'handler' => $this->errorHandler(),
                 'headers' => [
                     'Authorization' => 'Bearer ' . $key,
+                    'Content-Type' => 'application/json'
                 ],
             ];
             $this->client = new \GuzzleHttp\Client($this->config);
