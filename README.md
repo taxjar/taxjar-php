@@ -231,6 +231,22 @@ $validation = $client->validate([
 $summarized_rates = $client->summaryRates();
 ```
 
+## Sandbox Environment
+
+You can easily configure the client to use the [TaxJar Sandbox](https://developers.taxjar.com/api/reference/#sandbox-environment):
+
+```php
+$client->setApiConfig('api_url', TaxJar\Client::SANDBOX_API_URL);
+```
+
+For testing specific [error response codes](https://developers.taxjar.com/api/reference/#errors), pass the custom `X-TJ-Expected-Response` header:
+
+```php
+$client->setApiConfig('headers', [
+  'X-TJ-Expected-Response' => 422
+]);
+```
+
 ## Error Handling
 
 When invalid data is sent to TaxJar or we encounter an error, we’ll throw a `TaxJar\Exception` with the HTTP status code and error message. To catch these exceptions, refer to the example below:

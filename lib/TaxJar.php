@@ -3,6 +3,10 @@ namespace TaxJar;
 
 class TaxJar
 {
+    const DEFAULT_API_URL = 'https://api.taxjar.com';
+    const SANDBOX_API_URL = 'https://api.sandbox.taxjar.com';
+    const API_VERSION = 'v2';
+
     protected $client;
     protected $config;
 
@@ -10,10 +14,11 @@ class TaxJar
     {
         if ($key) {
             $this->config = [
-                'base_uri' => 'https://api.taxjar.com/v2/',
+                'base_uri' => self::DEFAULT_API_URL . '/' . self::API_VERSION . '/',
                 'handler' => $this->errorHandler(),
                 'headers' => [
                     'Authorization' => 'Bearer ' . $key,
+                    'Content-Type' => 'application/json'
                 ],
             ];
             $this->client = new \GuzzleHttp\Client($this->config);
@@ -47,12 +52,25 @@ class TaxJar
 
     public function setApiConfig($index, $value)
     {
+        if ($index == 'api_url') {
+            $index = 'base_uri';
+            $value .= '/' . self::API_VERSION . '/';
+        }
+
+        if ($index == 'headers') {
+            $value = array_merge($this->config[$index], $value);
+        }
+
         $this->config[$index] = $value;
         $this->refreshClient($this->config);
     }
 
     public function getApiConfig($index)
     {
+        if ($index == 'api_url') {
+            $index = 'base_uri';
+        }
+
         if ($index) {
             return $this->config[$index];
         } else {
