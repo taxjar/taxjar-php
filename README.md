@@ -236,6 +236,8 @@ $summarized_rates = $client->summaryRates();
 You can easily configure the client to use the [TaxJar Sandbox](https://developers.taxjar.com/api/reference/#sandbox-environment):
 
 ```php
+require __DIR__ . '/vendor/autoload.php';
+$client = TaxJar\Client::withApiKey($_ENV['TAXJAR_SANDBOX_API_KEY']);
 $client->setApiConfig('api_url', TaxJar\Client::SANDBOX_API_URL);
 ```
 
