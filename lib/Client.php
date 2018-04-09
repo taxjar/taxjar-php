@@ -212,6 +212,83 @@ class Client extends TaxJar
     }
 
     /**
+     * List customers
+     * https://developers.taxjar.com/api/?php#get-list-customers
+     *
+     * @param array $parameters
+     *
+     * @return object Customer collection.
+     */
+    public function listCustomers($parameters = [])
+    {
+        $response = $this->client->get('customers', [
+            'query' => $parameters,
+        ]);
+        return json_decode($response->getBody())->customers;
+    }
+
+    /**
+     * Show customer
+     * https://developers.taxjar.com/api/?php#get-show-a-customer
+     *
+     * @param integer $customer_id
+     *
+     * @return object Customer object.
+     */
+    public function showCustomer($customer_id)
+    {
+        $response = $this->client->get('customers/' . $customer_id);
+        return json_decode($response->getBody())->customer;
+    }
+
+    /**
+     * Create a new customer
+     * https://developers.taxjar.com/api/?php#post-create-a-customer
+     *
+     * @param array $parameters
+     *
+     * @return object Customer object.
+     */
+    public function createCustomer($parameters = [])
+    {
+        $response = $this->client->post('customers', [
+            'json' => $parameters,
+        ]);
+        return json_decode($response->getBody())->customer;
+    }
+
+    /**
+     * Update a customer
+     * https://developers.taxjar.com/api/?php#put-update-a-customer
+     *
+     * @param integer @customer_id
+     * @param array $parameters
+     *
+     * @return object Customer object.
+     */
+    public function updateCustomer($parameters = [])
+    {
+        $response = $this->client->put('customers/' . $parameters['customer_id'], [
+            'json' => $parameters,
+        ]);
+        return json_decode($response->getBody())->customer;
+    }
+
+    /**
+     * Delete a customer
+     * https://developers.taxjar.com/api/?php#delete-delete-a-customer
+     *
+     * @param integer $customer_id
+     *
+     * @return object Customer object.
+     */
+    public function deleteCustomer($customer_id)
+    {
+        $response = $this->client->delete('customers/' . $customer_id);
+        return json_decode($response->getBody())->customer;
+    }
+
+    /**
      * Get nexus regions
      * https://developers.taxjar.com/api/reference/?php#get-list-nexus-regions
      *
