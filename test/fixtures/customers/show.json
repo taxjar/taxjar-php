@@ -1,0 +1,22 @@
+{
+    "customer": {
+        "customer_id": "123",
+        "exemption_type": "wholesale",
+        "exempt_regions": [
+            {
+                "country": "US",
+                "state": "FL"
+            },
+            {
+                "country": "US",
+                "state": "PA"
+            }
+        ],
+        "name": "Dunder Mifflin Paper Company",
+        "country": "US",
+        "state": "PA",
+        "zip": "18504",
+        "city": "Scranton",
+        "street": "1725 Slough Avenue"
+    }
+}

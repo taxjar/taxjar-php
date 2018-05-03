@@ -211,6 +211,70 @@ $refund = $client->updateRefund([
 $client->deleteRefund('321');
 ```
 
+### List customers
+
+```php
+$customers = $client->listCustomers();
+```
+
+### Show customer
+
+```php
+$customer = $client->showCustomer('123');
+```
+
+### Create customer
+
+```php
+$customer = $client->createCustomer([
+  'customer_id' => '123',
+  'exemption_type' => 'wholesale',
+  'name' => 'Dunder Mifflin Paper Company',
+  'exempt_regions' => [
+    [
+      'country' => 'US',
+      'state' => 'FL'
+    ],
+    [
+      'country' => 'US',
+      'state' => 'PA'
+    ]
+  ],
+  'country' => 'US',
+  'state' => 'PA',
+  'zip' => '18504',
+  'city' => 'Scranton',
+  'street' => '1725 Slough Avenue'
+]);
+```
+
+### Update customer
+
+```php
+$customer = $client->updateCustomer([
+  'customer_id' => '123',
+  'exemption_type' => 'wholesale',
+  'name' => 'Sterling Cooper',
+  'exempt_regions' => [
+    [
+      'country' => 'US',
+      'state' => 'NY'
+    ]
+  ],
+  'country' => 'US',
+  'state' => 'NY',
+  'zip' => '10010',
+  'city' => 'New York',
+  'street' => '405 Madison Ave'
+]);
+```
+
+### Delete customer
+
+```php
+$client->deleteCustomer('123');
+```
+
 ### List nexus regions
 
 ```php
