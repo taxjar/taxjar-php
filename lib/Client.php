@@ -301,6 +301,22 @@ class Client extends TaxJar
     }
 
     /**
+     * Validate an address
+     * https://developers.taxjar.com/api/reference/?php#post-validate-an-address
+     *
+     * @param array $parameters
+     *
+     * @return object Validation object.
+     */
+    public function validateAddress($parameters = [])
+    {
+        $response = $this->client->post('addresses/validate', [
+            'json' => $parameters,
+        ]);
+        return json_decode($response->getBody())->addresses;
+    }
+
+    /**
      * Validate a VAT number
      * https://developers.taxjar.com/api/reference/?php#get-validate-a-vat-number
      *
