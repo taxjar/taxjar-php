@@ -2,6 +2,7 @@
   "order": {
     "transaction_id": "123",
     "user_id": 10649,
+    "provider": "api",
     "transaction_date": "2015-05-14T00:00:00Z",
     "to_country": "US",
     "to_zip": "90002",
