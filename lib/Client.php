@@ -79,12 +79,15 @@ class Client extends TaxJar
      * https://developers.taxjar.com/api/?php#show-an-order-transaction
      *
      * @param integer $transaction_id
+     * @param array $parameters
      *
      * @return object Order object.
      */
-    public function showOrder($transaction_id)
+    public function showOrder($transaction_id, $parameters = [])
     {
-        $response = $this->client->get('transactions/orders/' . $transaction_id);
+        $response = $this->client->get('transactions/orders/' . $transaction_id, [
+            'query' => $parameters,
+        ]);
         return json_decode($response->getBody())->order;
     }
 
@@ -126,12 +129,15 @@ class Client extends TaxJar
      * https://developers.taxjar.com/api/?php#delete-an-order-transaction
      *
      * @param integer $transaction_id
+     * @param array $parameters
      *
      * @return object Order object.
      */
-    public function deleteOrder($transaction_id)
+    public function deleteOrder($transaction_id, $parameters = [])
     {
-        $response = $this->client->delete('transactions/orders/' . $transaction_id);
+        $response = $this->client->delete('transactions/orders/' . $transaction_id, [
+            'query' => $parameters,
+        ]);
         return json_decode($response->getBody())->order;
     }
 
@@ -156,12 +162,15 @@ class Client extends TaxJar
      * https://developers.taxjar.com/api/?php#show-a-refund-transaction
      *
      * @param integer $transaction_id
+     * @param array $parameters
      *
      * @return object Refund object.
      */
-    public function showRefund($transaction_id)
+    public function showRefund($transaction_id, $parameters = [])
     {
-        $response = $this->client->get('transactions/refunds/' . $transaction_id);
+        $response = $this->client->get('transactions/refunds/' . $transaction_id, [
+            'query' => $parameters,
+        ]);
         return json_decode($response->getBody())->refund;
     }
 
@@ -202,12 +211,15 @@ class Client extends TaxJar
      * https://developers.taxjar.com/api/?php#delete-a-refund-transaction
      *
      * @param integer $transaction_id
+     * @param array $parameters
      *
      * @return object Refund object.
      */
-    public function deleteRefund($transaction_id)
+    public function deleteRefund($transaction_id, $parameters = [])
     {
-        $response = $this->client->delete('transactions/refunds/' . $transaction_id);
+        $response = $this->client->delete('transactions/refunds/' . $transaction_id, [
+            'query' => $parameters,
+        ]);
         return json_decode($response->getBody())->refund;
     }
 

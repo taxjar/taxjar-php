@@ -2,6 +2,7 @@
   "refund": {
     "transaction_id": "321",
     "user_id": 10649,
+    "provider": "api",
     "transaction_date": "2015-05-14T00:00:00Z",
     "transaction_reference_id": "123",
     "to_country": "US",

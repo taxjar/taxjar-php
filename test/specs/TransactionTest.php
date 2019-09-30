@@ -48,6 +48,28 @@ class TransactionTest extends TaxJarTest
         ]));
     }
 
+    public function testShowOrderWithParams()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/transactions/orders/123?provider=api')
+            ->then()
+            ->statusCode(200)
+            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
+            ->end();
+
+        $this->http->setUp();
+
+        $response = $this->client->showOrder(123, [
+            'provider' => 'api',
+        ]);
+
+        $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
+            "order" => $response
+        ]));
+    }
+
     public function testCreateOrder()
     {
         $this->http->mock
@@ -142,6 +164,28 @@ class TransactionTest extends TaxJarTest
         ]));
     }
 
+    public function testDeleteOrderWithParams()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('DELETE')
+            ->pathIs('/transactions/orders/123?provider=api')
+            ->then()
+            ->statusCode(200)
+            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
+            ->end();
+
+        $this->http->setUp();
+
+        $response = $this->client->deleteOrder(123, [
+            'provider' => 'api',
+        ]);
+
+        $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
+            "order" => $response
+        ]));
+    }
+
     public function testListRefunds()
     {
         $this->http->mock
@@ -179,6 +223,28 @@ class TransactionTest extends TaxJarTest
         $this->http->setUp();
 
         $response = $this->client->showRefund(321);
+
+        $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
+            "refund" => $response
+        ]));
+    }
+
+    public function testShowRefundWithParams()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('GET')
+            ->pathIs('/transactions/refunds/321?provider=api')
+            ->then()
+            ->statusCode(200)
+            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
+            ->end();
+
+        $this->http->setUp();
+
+        $response = $this->client->showRefund(321, [
+            'provider' => 'api',
+        ]);
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
@@ -273,6 +339,28 @@ class TransactionTest extends TaxJarTest
         $this->http->setUp();
 
         $response = $this->client->deleteRefund(321);
+
+        $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
+            "refund" => $response
+        ]));
+    }
+
+    public function testDeleteRefundWithParams()
+    {
+        $this->http->mock
+            ->when()
+            ->methodIs('DELETE')
+            ->pathIs('/transactions/refunds/321?provider=api')
+            ->then()
+            ->statusCode(200)
+            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
+            ->end();
+
+        $this->http->setUp();
+
+        $response = $this->client->deleteRefund(321, [
+            'provider' => 'api',
+        ]);
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
