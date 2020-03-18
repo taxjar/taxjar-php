@@ -29,10 +29,11 @@ class ConfigTest extends TaxJarTest
 
     public function testGetCustomHeaders()
     {
-        $this->assertEquals($this->client->getApiConfig('headers'), [
-            'Authorization' => 'Bearer test',
-            'Content-Type' => 'application/json'
-        ]);
+        $headers = $this->client->getApiConfig('headers');
+
+        $this->assertEquals($headers['Authorization'], 'Bearer test');
+        $this->assertEquals($headers['Content-Type'], 'application/json');
+        $this->assertRegExp('/TaxJar\/PHP \(.*\) taxjar-php\/\d+\.\d+\.\d+/', $headers['User-Agent']);
     }
 
     public function testSetCustomHeaders()
@@ -40,10 +41,12 @@ class ConfigTest extends TaxJarTest
         $this->client->setApiConfig('headers', [
             'X-TJ-Expected-Response' => 422
         ]);
-        $this->assertEquals($this->client->getApiConfig('headers'), [
-            'Authorization' => 'Bearer test',
-            'Content-Type' => 'application/json',
-            'X-TJ-Expected-Response' => 422
-        ]);
+
+        $headers = $this->client->getApiConfig('headers');
+
+        $this->assertEquals($headers['Authorization'], 'Bearer test');
+        $this->assertEquals($headers['Content-Type'], 'application/json');
+        $this->assertEquals($headers['X-TJ-Expected-Response'], 422);
+        $this->assertRegExp('/TaxJar\/PHP \(.*\) taxjar-php\/\d+\.\d+\.\d+/', $headers['User-Agent']);
     }
 }
