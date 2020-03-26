@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.10.0] - 2020-03-26
+
+- Include custom user agent for debugging and informational purposes
+
 ## [1.9.0] - 2019-09-30
 
 - `showOrder`, `deleteOrder`, `showRefund`, and `deleteRefund` now accept an optional second parameter: `$parameters`.
@@ -93,7 +97,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release.
 
-[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v1.9.0...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/taxjar/taxjar-php/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/taxjar/taxjar-php/compare/v1.8.1...v1.9.0
 [1.8.1]: https://github.com/taxjar/taxjar-php/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/taxjar/taxjar-php/compare/v1.7.0...v1.8.0
