@@ -18,7 +18,8 @@ class TaxJar
                 'handler' => $this->errorHandler(),
                 'headers' => [
                     'Authorization' => 'Bearer ' . $key,
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
+                    'User-Agent' => $this->getUserAgent()
                 ],
             ];
             $this->client = new \GuzzleHttp\Client($this->config);
@@ -76,5 +77,20 @@ class TaxJar
         } else {
             return $this->config;
         }
+    }
+
+    private function getUserAgent()
+    {
+        $os = function_exists('php_uname') ? php_uname('a') : '';
+        $php = 'PHP ' . PHP_VERSION;
+        $curl = function_exists('curl_version') ? 'cURL ' . curl_version()['version'] : '';
+        $openSSL = defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : '';
+        try {
+            $version = json_decode(file_get_contents('composer.json', true))->version;
+        } catch (\Exception $e) {
+            $version = '';
+        }
+
+        return "TaxJar/PHP ($os; $php; $curl; $openSSL) taxjar-php/$version";
     }
 }
