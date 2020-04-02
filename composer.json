@@ -1,7 +1,6 @@
 {
   "name": "taxjar/taxjar-php",
   "description": "Sales Tax API Client for PHP 5.5+",
-  "version": "1.10.0",
   "keywords": [
     "taxjar",
     "sales tax",
