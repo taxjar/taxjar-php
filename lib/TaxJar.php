@@ -3,6 +3,7 @@ namespace TaxJar;
 
 class TaxJar
 {
+    const VERSION = '1.10.0';
     const DEFAULT_API_URL = 'https://api.taxjar.com';
     const SANDBOX_API_URL = 'https://api.sandbox.taxjar.com';
     const API_VERSION = 'v2';
@@ -85,12 +86,7 @@ class TaxJar
         $php = 'PHP ' . PHP_VERSION;
         $curl = function_exists('curl_version') ? 'cURL ' . curl_version()['version'] : '';
         $openSSL = defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : '';
-        try {
-            $version = json_decode(file_get_contents('composer.json', true))->version;
-        } catch (\Exception $e) {
-            $version = '';
-        }
 
-        return "TaxJar/PHP ($os; $php; $curl; $openSSL) taxjar-php/$version";
+        return "TaxJar/PHP ($os; $php; $curl; $openSSL) taxjar-php/" . self::VERSION;
     }
 }
