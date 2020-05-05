@@ -413,7 +413,7 @@ $validation = $client->validate([
 
 > Retrieve minimum and average sales tax rates by region as a backup.
 >
-> This method is useful for periodically pulling down rates to use if the SmartCalcs API is unavailable. However, it does not support nexus determination, sourcing based on a ship from and ship to address, shipping taxability, product exemptions, customer exemptions, or sales tax holidays. We recommend using [`taxForOrder` to accurately calculate sales tax for an order](#calculate-sales-tax-for-an-order-api-docs).
+> This method is useful for periodically pulling down rates to use if the TaxJar API is unavailable. However, it does not support nexus determination, sourcing based on a ship from and ship to address, shipping taxability, product exemptions, customer exemptions, or sales tax holidays. We recommend using [`taxForOrder` to accurately calculate sales tax for an order](#calculate-sales-tax-for-an-order-api-docs).
 
 ```php
 $summarized_rates = $client->summaryRates();
