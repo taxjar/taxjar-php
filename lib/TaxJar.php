@@ -41,7 +41,7 @@ class TaxJar
                         '%s %s – %s',
                         $response->getStatusCode(),
                         isset($data->error) ? $data->error : 'something unexpected occurred',
-                        isset($data->detail) ? $data->detail: 'please try again'
+                        isset($data->detail) ? $data->detail : 'please try again'
                     ),
                     $response->getStatusCode()
                 );
