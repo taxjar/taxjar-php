@@ -36,19 +36,15 @@ class TaxJar
             if ($response->getStatusCode() >= 400) {
                 $data = json_decode($response->getBody());
 
-                if ($data && $data->error && $data->detail) {
-                    throw new Exception(
-                        sprintf(
-                            '%s %s – %s',
-                            $response->getStatusCode(),
-                            $data->error,
-                            $data->detail
-                        ),
-                        $response->getStatusCode()
-                    );
-                }
-
-                throw new Exception($response);
+                throw new Exception(
+                    sprintf(
+                        '%s %s – %s',
+                        $response->getStatusCode(),
+                        isset($data->error) ? $data->error : 'something unexpected occurred',
+                        isset($data->detail) ? $data->detail: 'please try again'
+                    ),
+                    $response->getStatusCode()
+                );
             }
 
             return $response;
