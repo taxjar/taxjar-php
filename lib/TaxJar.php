@@ -3,7 +3,7 @@ namespace TaxJar;
 
 class TaxJar
 {
-    const VERSION = '1.10.1';
+    const VERSION = '1.10.2';
     const DEFAULT_API_URL = 'https://api.taxjar.com';
     const SANDBOX_API_URL = 'https://api.sandbox.taxjar.com';
     const API_VERSION = 'v2';
@@ -35,10 +35,20 @@ class TaxJar
         $handler->push(\GuzzleHttp\Middleware::mapResponse(function ($response) {
             if ($response->getStatusCode() >= 400) {
                 $data = json_decode($response->getBody());
-                throw new Exception(
-                    sprintf('%s %s – %s', $response->getStatusCode(), $data->error, $data->detail),
-                    $response->getStatusCode()
-                );
+
+                if ($data && $data->error && $data->detail) {
+                    throw new Exception(
+                        sprintf(
+                            '%s %s – %s',
+                            $response->getStatusCode(),
+                            $data->error,
+                            $data->detail
+                        ),
+                        $response->getStatusCode()
+                    );
+                }
+
+                throw new Exception($response);
             }
 
             return $response;

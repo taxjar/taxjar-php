@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.10.2] - 2020-06-02
+- Fix issue where some error messages were masked by improper formatting
+
 ## [1.10.1] - 2020-04-02
 - Fix issue with displaying current taxjar-php version in user agent
 
@@ -100,7 +103,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release.
 
-[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v1.10.1...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v1.10.2...HEAD
+[1.10.2]: https://github.com/taxjar/taxjar-php/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/taxjar/taxjar-php/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/taxjar/taxjar-php/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/taxjar/taxjar-php/compare/v1.8.1...v1.9.0
