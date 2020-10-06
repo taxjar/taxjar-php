@@ -19,7 +19,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "4.8.*",
-    "internations/http-mock": "^0.13.0"
+    "internations/http-mock": "^0.13.0",
+    "silex/silex": "2.2.2"
   },
   "autoload": {
     "psr-4": { "TaxJar\\" : "lib/" }

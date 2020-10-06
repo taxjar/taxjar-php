@@ -3,9 +3,6 @@ language: php
 dist: trusty
 
 php:
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -19,6 +16,8 @@ matrix:
     - php: 5.5
       env: HTTPMOCK_VERSION="0.10.1"
     - php: 5.6
+      env: HTTPMOCK_VERSION="0.10.1"
+    - php: 7.0
       env: HTTPMOCK_VERSION="0.10.1"
 
 before_script:
