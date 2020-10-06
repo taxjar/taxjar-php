@@ -10,7 +10,11 @@ class TransactionTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/orders?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
+            ->pathIs('/transactions/orders')
+            ->queryParamsAre([
+                'from_transaction_date' => '2015/05/01',
+                'to_transaction_date' => '2015/05/31'
+            ])
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/list.json"))
@@ -53,7 +57,8 @@ class TransactionTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/orders/123?provider=api')
+            ->pathIs('/transactions/orders/123')
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
@@ -169,7 +174,8 @@ class TransactionTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('DELETE')
-            ->pathIs('/transactions/orders/123?provider=api')
+            ->pathIs('/transactions/orders/123')
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
@@ -191,7 +197,11 @@ class TransactionTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/refunds?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
+            ->pathIs('/transactions/refunds')
+            ->queryParamsAre([
+                'from_transaction_date' => '2015/05/01',
+                'to_transaction_date' => '2015/05/31'
+            ])
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/list.json"))
@@ -234,7 +244,8 @@ class TransactionTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/refunds/321?provider=api')
+            ->pathIs('/transactions/refunds/321')
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
@@ -350,7 +361,8 @@ class TransactionTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('DELETE')
-            ->pathIs('/transactions/refunds/321?provider=api')
+            ->pathIs('/transactions/refunds/321')
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))

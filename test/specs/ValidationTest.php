@@ -36,7 +36,8 @@ class ValidationTest extends TaxJarTest
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/validation?vat=FR40303265045')
+            ->pathIs('/validation')
+            ->queryParamIs('vat', 'FR40303265045')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/validation.json"))
