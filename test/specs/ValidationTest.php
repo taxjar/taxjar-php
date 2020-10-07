@@ -33,10 +33,12 @@ class ValidationTest extends TaxJarTest
 
     public function testValidation()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?vat=FR40303265045' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/validation')
+            ->pathIs('/validation' . $queryString)
             ->queryParamIs('vat', 'FR40303265045')
             ->then()
             ->statusCode(200)
