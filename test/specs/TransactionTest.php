@@ -7,10 +7,16 @@ class TransactionTest extends TaxJarTest
 {
     public function testListOrders()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/orders?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
+            ->pathIs('/transactions/orders' . $queryString)
+            ->queryParamsAre([
+                'from_transaction_date' => '2015/05/01',
+                'to_transaction_date' => '2015/05/31'
+            ])
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/list.json"))
@@ -50,10 +56,13 @@ class TransactionTest extends TaxJarTest
 
     public function testShowOrderWithParams()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/orders/123?provider=api')
+            ->pathIs('/transactions/orders/123' . $queryString)
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
@@ -166,10 +175,13 @@ class TransactionTest extends TaxJarTest
 
     public function testDeleteOrderWithParams()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('DELETE')
-            ->pathIs('/transactions/orders/123?provider=api')
+            ->pathIs('/transactions/orders/123' . $queryString)
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
@@ -188,10 +200,16 @@ class TransactionTest extends TaxJarTest
 
     public function testListRefunds()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/refunds?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31')
+            ->pathIs('/transactions/refunds' . $queryString)
+            ->queryParamsAre([
+                'from_transaction_date' => '2015/05/01',
+                'to_transaction_date' => '2015/05/31'
+            ])
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/list.json"))
@@ -231,10 +249,13 @@ class TransactionTest extends TaxJarTest
 
     public function testShowRefundWithParams()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('GET')
-            ->pathIs('/transactions/refunds/321?provider=api')
+            ->pathIs('/transactions/refunds/321' . $queryString)
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
@@ -347,10 +368,13 @@ class TransactionTest extends TaxJarTest
 
     public function testDeleteRefundWithParams()
     {
+        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
+
         $this->http->mock
             ->when()
             ->methodIs('DELETE')
-            ->pathIs('/transactions/refunds/321?provider=api')
+            ->pathIs('/transactions/refunds/321' . $queryString)
+            ->queryParamIs('provider', 'api')
             ->then()
             ->statusCode(200)
             ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
