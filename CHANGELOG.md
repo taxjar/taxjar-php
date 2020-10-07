@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.10.4] - 2020-10-06
+- Support Guzzle version 7 in composer.json.
+
 ## [1.10.3] - 2020-06-03
 - Tweak error handling and provide default error messages
 
@@ -106,7 +109,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release.
 
-[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v1.10.3...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v1.10.4...HEAD
+[1.10.4]: https://github.com/taxjar/taxjar-php/compare/v1.10.3...v1.10.4
 [1.10.3]: https://github.com/taxjar/taxjar-php/compare/v1.10.2...v1.10.3
 [1.10.2]: https://github.com/taxjar/taxjar-php/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/taxjar/taxjar-php/compare/v1.10.0...v1.10.1
