@@ -11,6 +11,8 @@ class TaxJar
     protected $client;
     protected $config;
 
+    protected static $requestTimeout = 30;
+
     public function __construct($key)
     {
         if ($key) {
@@ -22,6 +24,7 @@ class TaxJar
                     'Content-Type' => 'application/json',
                     'User-Agent' => $this->getUserAgent()
                 ],
+                'timeout' => static::$requestTimeout,
             ];
             $this->client = new \GuzzleHttp\Client($this->config);
         } else {

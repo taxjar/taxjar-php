@@ -12,6 +12,7 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 [Usage](#usage)<br>
 [Sandbox Environment](#sandbox-environment)<br>
 [Error Handling](#error-handling)<br>
+[Request Options](#request-options)<br>
 [Testing](#testing)
 
 <hr>
@@ -483,6 +484,25 @@ try {
 ```
 
 For a full list of error codes, [click here](https://developers.taxjar.com/api/reference/?php#errors).
+
+## Request Options
+
+This package requires Guzzle to send HTTP requests. Guzzle is an easily configurable HTTP client. For complete documentation of available request configuration
+options, [click here](https://docs.guzzlephp.org/en/stable/request-options.html) to view Guzzle's documentation.
+
+
+### Default request timeout
+
+>When a request is sent to TaxJar, by default, the request will timeout if a response is not received within 30 seconds.
+
+To modify the default request timeout length, set the following config parameter after authenticating:
+
+```php
+require __DIR__ . '/vendor/autoload.php';
+$client = TaxJar\\Client::withApiKey($_ENV['TAXJAR_API_KEY']);
+// Sets the request timeout to 45 seconds.
+$client->setApiConfig('timeout', 45);
+```
 
 ## Testing
 

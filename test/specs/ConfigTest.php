@@ -8,6 +8,7 @@ class ConfigTest extends TaxJarTest
     public function testGetApiConfig()
     {
         $this->assertEquals($this->client->getApiConfig('base_uri'), 'http://localhost:8082');
+        $this->assertEquals($this->client->getApiConfig('timeout'), 30);
     }
 
     public function testSetApiConfig()
