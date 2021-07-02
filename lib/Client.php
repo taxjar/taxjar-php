@@ -44,7 +44,7 @@ class Client extends TaxJar
 
     /**
      * Get sales tax for an order
-     * hhttps://developers.taxjar.com/api/reference/?php#post-calculate-sales-tax-for-an-order
+     * https://developers.taxjar.com/api/reference/?php#post-calculate-sales-tax-for-an-order
      *
      * @param array $parameters
      *
