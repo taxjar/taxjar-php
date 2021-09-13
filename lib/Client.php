@@ -78,7 +78,7 @@ class Client extends TaxJar
      * Show order transaction
      * https://developers.taxjar.com/api/?php#show-an-order-transaction
      *
-     * @param integer $transaction_id
+     * @param string $transaction_id
      * @param array $parameters
      *
      * @return object Order object.
@@ -111,7 +111,7 @@ class Client extends TaxJar
      * Update an existing order transaction
      * https://developers.taxjar.com/api/?php#update-an-order-transaction
      *
-     * @param integer @transaction_id
+     * @param string @transaction_id
      * @param array $parameters
      *
      * @return object Order object.
@@ -128,7 +128,7 @@ class Client extends TaxJar
      * Delete an existing order transaction
      * https://developers.taxjar.com/api/?php#delete-an-order-transaction
      *
-     * @param integer $transaction_id
+     * @param string $transaction_id
      * @param array $parameters
      *
      * @return object Order object.
@@ -161,7 +161,7 @@ class Client extends TaxJar
      * Show refund transaction
      * https://developers.taxjar.com/api/?php#show-a-refund-transaction
      *
-     * @param integer $transaction_id
+     * @param string $transaction_id
      * @param array $parameters
      *
      * @return object Refund object.
@@ -210,7 +210,7 @@ class Client extends TaxJar
      * Delete an existing refund transaction
      * https://developers.taxjar.com/api/?php#delete-a-refund-transaction
      *
-     * @param integer $transaction_id
+     * @param string $transaction_id
      * @param array $parameters
      *
      * @return object Refund object.
