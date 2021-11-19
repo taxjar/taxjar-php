@@ -473,12 +473,15 @@ try {
       ]
     ]
   ]);
-} catch (TaxJar\Exception $e) {
+} catch (TaxJar\ApiException $e) {
   // 406 Not Acceptable – transaction_id is missing
   echo $e->getMessage();
 
   // 406
   echo $e->getStatusCode();
+
+  // Get the original response object
+  $e->getResponse();
 }
 ```
 
