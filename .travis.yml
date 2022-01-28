@@ -7,22 +7,11 @@ php:
   - 7.2
   - 7.3
   - 7.4
-
-env:
-  - HTTPMOCK_VERSION="^0.13.0"
-
-matrix:
-  include:
-    - php: 5.5
-      env: HTTPMOCK_VERSION="0.10.1"
-    - php: 5.6
-      env: HTTPMOCK_VERSION="0.10.1"
-    - php: 7.0
-      env: HTTPMOCK_VERSION="0.10.1"
+  - 8.0
+  - 8.1
 
 before_script:
   - composer self-update
-  - composer require "internations/http-mock:${HTTPMOCK_VERSION}" --no-update
   - composer install
 
-script: php vendor/bin/phpunit test/specs/.
+script: composer tests

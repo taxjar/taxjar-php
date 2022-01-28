@@ -1,24 +1,25 @@
 <?php
-if (!class_exists('TaxJarTest')) {
-    require __DIR__ . '/../TaxJarTest.php';
-}
+
+namespace TaxJar\Tests\specs;
+
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use TaxJar\Tests\TaxJarTest;
 
 class CustomerTest extends TaxJarTest
 {
     public function testListCustomers()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/customers')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/customers/list.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/customers/list.json")));
 
         $response = $this->client->listCustomers();
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/customers', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/customers/list.json', json_encode([
             "customers" => $response
@@ -27,18 +28,16 @@ class CustomerTest extends TaxJarTest
 
     public function testShowCustomer()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/customers/123')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/customers/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/customers/show.json")));
 
         $response = $this->client->showCustomer(123);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/customers/123', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/customers/show.json', json_encode([
             "customer" => $response
@@ -47,16 +46,7 @@ class CustomerTest extends TaxJarTest
 
     public function testCreateCustomer()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('POST')
-            ->pathIs('/customers')
-            ->then()
-            ->statusCode(201)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/customers/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(201, [], file_get_contents(__DIR__ . "/../fixtures/customers/show.json")));
 
         $response = $this->client->createCustomer([
             'customer_id' => '123',
@@ -79,6 +69,13 @@ class CustomerTest extends TaxJarTest
             'street' => '1725 Slough Avenue'
         ]);
 
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('/customers', $request->getUri()->getPath());
+
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/customers/show.json', json_encode([
             "customer" => $response
         ]));
@@ -86,16 +83,7 @@ class CustomerTest extends TaxJarTest
 
     public function testUpdateCustomer()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('PUT')
-            ->pathIs('/customers/123')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/customers/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/customers/show.json")));
 
         $response = $this->client->updateCustomer([
             'customer_id' => '123',
@@ -114,6 +102,13 @@ class CustomerTest extends TaxJarTest
             'street' => '405 Madison Ave'
         ]);
 
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('/customers/123', $request->getUri()->getPath());
+
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/customers/show.json', json_encode([
             "customer" => $response
         ]));
@@ -121,18 +116,16 @@ class CustomerTest extends TaxJarTest
 
     public function testDeleteCustomer()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('DELETE')
-            ->pathIs('/customers/123')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/customers/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/customers/show.json")));
 
         $response = $this->client->deleteCustomer(123);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('DELETE', $request->getMethod());
+        $this->assertSame('/customers/123', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/customers/show.json', json_encode([
             "customer" => $response

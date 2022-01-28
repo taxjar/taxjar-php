@@ -1,33 +1,29 @@
 <?php
-if (!class_exists('TaxJarTest')) {
-    require __DIR__ . '/../TaxJarTest.php';
-}
+
+namespace TaxJar\Tests\specs;
+
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use TaxJar\Tests\TaxJarTest;
 
 class TransactionTest extends TaxJarTest
 {
     public function testListOrders()
     {
-        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31' : '';
-
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/transactions/orders' . $queryString)
-            ->queryParamsAre([
-                'from_transaction_date' => '2015/05/01',
-                'to_transaction_date' => '2015/05/31'
-            ])
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/list.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/orders/list.json")));
 
         $response = $this->client->listOrders([
             'from_transaction_date' => '2015/05/01',
             'to_transaction_date' => '2015/05/31',
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/transactions/orders', $request->getUri()->getPath());
+        $this->assertSame('from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31', $request->getUri()->getQuery());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/list.json', json_encode([
             "orders" => $response
@@ -36,18 +32,16 @@ class TransactionTest extends TaxJarTest
 
     public function testShowOrder()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/transactions/orders/123')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/orders/show.json")));
 
         $response = $this->client->showOrder(123);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/transactions/orders/123', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
             "order" => $response
@@ -56,23 +50,19 @@ class TransactionTest extends TaxJarTest
 
     public function testShowOrderWithParams()
     {
-        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
-
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/transactions/orders/123' . $queryString)
-            ->queryParamIs('provider', 'api')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/orders/show.json")));
 
         $response = $this->client->showOrder(123, [
             'provider' => 'api',
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/transactions/orders/123', $request->getUri()->getPath());
+        $this->assertSame('provider=api', $request->getUri()->getQuery());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
             "order" => $response
@@ -81,16 +71,7 @@ class TransactionTest extends TaxJarTest
 
     public function testCreateOrder()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('POST')
-            ->pathIs('/transactions/orders')
-            ->then()
-            ->statusCode(201)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(201, [], file_get_contents(__DIR__ . "/../fixtures/orders/show.json")));
 
         $response = $this->client->createOrder([
             'transaction_id' => '123',
@@ -114,6 +95,13 @@ class TransactionTest extends TaxJarTest
             ],
         ]);
 
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('/transactions/orders', $request->getUri()->getPath());
+
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
             "order" => $response
         ]));
@@ -121,16 +109,7 @@ class TransactionTest extends TaxJarTest
 
     public function testUpdateOrder()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('PUT')
-            ->pathIs('/transactions/orders/123')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/orders/show.json")));
 
         $response = $this->client->updateOrder([
             'transaction_id' => '123',
@@ -148,6 +127,13 @@ class TransactionTest extends TaxJarTest
             ],
         ]);
 
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('/transactions/orders/123', $request->getUri()->getPath());
+
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
             "order" => $response
         ]));
@@ -155,18 +141,16 @@ class TransactionTest extends TaxJarTest
 
     public function testDeleteOrder()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('DELETE')
-            ->pathIs('/transactions/orders/123')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/orders/show.json")));
 
         $response = $this->client->deleteOrder(123);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('DELETE', $request->getMethod());
+        $this->assertSame('/transactions/orders/123', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
             "order" => $response
@@ -175,23 +159,19 @@ class TransactionTest extends TaxJarTest
 
     public function testDeleteOrderWithParams()
     {
-        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
-
-        $this->http->mock
-            ->when()
-            ->methodIs('DELETE')
-            ->pathIs('/transactions/orders/123' . $queryString)
-            ->queryParamIs('provider', 'api')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/orders/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/orders/show.json")));
 
         $response = $this->client->deleteOrder(123, [
             'provider' => 'api',
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('DELETE', $request->getMethod());
+        $this->assertSame('/transactions/orders/123', $request->getUri()->getPath());
+        $this->assertSame('provider=api', $request->getUri()->getQuery());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/orders/show.json', json_encode([
             "order" => $response
@@ -200,27 +180,20 @@ class TransactionTest extends TaxJarTest
 
     public function testListRefunds()
     {
-        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31' : '';
-
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/transactions/refunds' . $queryString)
-            ->queryParamsAre([
-                'from_transaction_date' => '2015/05/01',
-                'to_transaction_date' => '2015/05/31'
-            ])
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/list.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/refunds/list.json")));
 
         $response = $this->client->listRefunds([
             'from_transaction_date' => '2015/05/01',
             'to_transaction_date' => '2015/05/31',
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/transactions/refunds', $request->getUri()->getPath());
+        $this->assertSame('from_transaction_date=2015%2F05%2F01&to_transaction_date=2015%2F05%2F31', $request->getUri()->getQuery());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/list.json', json_encode([
             "refunds" => $response
@@ -229,18 +202,16 @@ class TransactionTest extends TaxJarTest
 
     public function testShowRefund()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/transactions/refunds/321')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/refunds/show.json")));
 
         $response = $this->client->showRefund(321);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/transactions/refunds/321', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
@@ -249,23 +220,19 @@ class TransactionTest extends TaxJarTest
 
     public function testShowRefundWithParams()
     {
-        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
-
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/transactions/refunds/321' . $queryString)
-            ->queryParamIs('provider', 'api')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/refunds/show.json")));
 
         $response = $this->client->showRefund(321, [
             'provider' => 'api',
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame('/transactions/refunds/321', $request->getUri()->getPath());
+        $this->assertSame('provider=api', $request->getUri()->getQuery());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
@@ -274,16 +241,7 @@ class TransactionTest extends TaxJarTest
 
     public function testCreateRefund()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('POST')
-            ->pathIs('/transactions/refunds')
-            ->then()
-            ->statusCode(201)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(201, [], file_get_contents(__DIR__ . "/../fixtures/refunds/show.json")));
 
         $response = $this->client->createRefund([
             'transaction_id' => '321',
@@ -308,6 +266,13 @@ class TransactionTest extends TaxJarTest
             ],
         ]);
 
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('/transactions/refunds', $request->getUri()->getPath());
+
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
         ]));
@@ -315,16 +280,7 @@ class TransactionTest extends TaxJarTest
 
     public function testUpdateRefund()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('PUT')
-            ->pathIs('/transactions/refunds/321')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/refunds/show.json")));
 
         $response = $this->client->updateRefund([
             'transaction_id' => '321',
@@ -341,6 +297,13 @@ class TransactionTest extends TaxJarTest
             ],
         ]);
 
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('PUT', $request->getMethod());
+        $this->assertSame('/transactions/refunds/321', $request->getUri()->getPath());
+
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
         ]));
@@ -348,18 +311,16 @@ class TransactionTest extends TaxJarTest
 
     public function testDeleteRefund()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('DELETE')
-            ->pathIs('/transactions/refunds/321')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/refunds/show.json")));
 
         $response = $this->client->deleteRefund(321);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('DELETE', $request->getMethod());
+        $this->assertSame('/transactions/refunds/321', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response
@@ -368,23 +329,19 @@ class TransactionTest extends TaxJarTest
 
     public function testDeleteRefundWithParams()
     {
-        $queryString = version_compare(PHP_VERSION, '7.1.0', '<') ? '?provider=api' : '';
-
-        $this->http->mock
-            ->when()
-            ->methodIs('DELETE')
-            ->pathIs('/transactions/refunds/321' . $queryString)
-            ->queryParamIs('provider', 'api')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/refunds/show.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/refunds/show.json")));
 
         $response = $this->client->deleteRefund(321, [
             'provider' => 'api',
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('DELETE', $request->getMethod());
+        $this->assertSame('/transactions/refunds/321', $request->getUri()->getPath());
+        $this->assertSame('provider=api', $request->getUri()->getQuery());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/refunds/show.json', json_encode([
             "refund" => $response

@@ -1,7 +1,8 @@
 <?php
-if (!class_exists('TaxJarTest')) {
-    require __DIR__ . '/../TaxJarTest.php';
-}
+
+namespace TaxJar\Tests\specs;
+
+use TaxJar\Tests\TaxJarTest;
 
 class ConfigTest extends TaxJarTest
 {
@@ -33,7 +34,7 @@ class ConfigTest extends TaxJarTest
 
         $this->assertEquals($headers['Authorization'], 'Bearer test');
         $this->assertEquals($headers['Content-Type'], 'application/json');
-        $this->assertRegExp('/TaxJar\/PHP \(.*\) taxjar-php\/\d+\.\d+\.\d+/', $headers['User-Agent']);
+        $this->assertMatchesRegularExpression('/TaxJar\/PHP \(.*\) taxjar-php\/\d+\.\d+\.\d+/', $headers['User-Agent']);
     }
 
     public function testSetCustomHeaders()
@@ -47,6 +48,6 @@ class ConfigTest extends TaxJarTest
         $this->assertEquals($headers['Authorization'], 'Bearer test');
         $this->assertEquals($headers['Content-Type'], 'application/json');
         $this->assertEquals($headers['X-TJ-Expected-Response'], 422);
-        $this->assertRegExp('/TaxJar\/PHP \(.*\) taxjar-php\/\d+\.\d+\.\d+/', $headers['User-Agent']);
+        $this->assertMatchesRegularExpression('/TaxJar\/PHP \(.*\) taxjar-php\/\d+\.\d+\.\d+/', $headers['User-Agent']);
     }
 }

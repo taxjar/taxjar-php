@@ -8,11 +8,6 @@ class Client extends TaxJar
         return new Client($key);
     }
 
-    public function __construct($key)
-    {
-        parent::__construct($key);
-    }
-
     /**
      * Get tax categories
      * https://developers.taxjar.com/api/?php#list-tax-categories

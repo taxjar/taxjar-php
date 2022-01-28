@@ -1,22 +1,16 @@
 <?php
-if (!class_exists('TaxJarTest')) {
-    require __DIR__ . '/../TaxJarTest.php';
-}
+
+namespace TaxJar\Tests\specs;
+
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use TaxJar\Tests\TaxJarTest;
 
 class TaxTest extends TaxJarTest
 {
     public function testTaxForOrder()
     {
-        $this->http->mock
-            ->when()
-            ->methodIs('POST')
-            ->pathIs('/taxes')
-            ->then()
-            ->statusCode(200)
-            ->body(file_get_contents(__DIR__ . "/../fixtures/taxes.json"))
-            ->end();
-
-        $this->http->setUp();
+        $this->http->append(new Response(200, [], file_get_contents(__DIR__ . "/../fixtures/taxes.json")));
 
         $response = $this->client->taxForOrder([
             'from_country' => 'US',
@@ -28,6 +22,13 @@ class TaxTest extends TaxJarTest
             'amount' => 16.50,
             'shipping' => 1.5,
         ]);
+
+        $this->assertCount(1, $this->history);
+
+        /** @var Request $request */
+        $request = reset($this->history)['request'];
+        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame('/taxes', $request->getUri()->getPath());
 
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/../fixtures/taxes.json', json_encode([
             "tax" => $response
