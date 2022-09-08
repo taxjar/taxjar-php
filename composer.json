@@ -14,15 +14,24 @@
     }
   ],
   "require": {
-    "php": ">=5.5.0",
+    "php": "^7.2|^8.0",
+    "ext-json": "*",
     "guzzlehttp/guzzle": "^6.0.2|^7.0.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.8.*",
-    "internations/http-mock": "^0.13.0",
-    "silex/silex": "2.2.2"
+    "phpunit/phpunit": "^8.5"
   },
   "autoload": {
-    "psr-4": { "TaxJar\\" : "lib/" }
+    "psr-4": {
+      "TaxJar\\" : "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TaxJar\\Tests\\": "test/"
+    }
+  },
+  "scripts": {
+    "tests": "phpunit"
   }
 }

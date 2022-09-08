@@ -1,7 +1,8 @@
 <?php
-if (!class_exists('TaxJarTest')) {
-    require __DIR__ . '/../TaxJarTest.php';
-}
+
+namespace TaxJar\Tests\specs;
+
+use TaxJar\Tests\TaxJarTest;
 
 class ConfigTest extends TaxJarTest
 {
