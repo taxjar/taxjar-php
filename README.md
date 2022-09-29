@@ -31,7 +31,7 @@ composer require taxjar/taxjar-php
 ```json
 {
   "require": {
-    "taxjar/taxjar-php": "^1.10"
+    "taxjar/taxjar-php": "^2.0"
   }
 }
 ```
