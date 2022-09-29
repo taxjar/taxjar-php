@@ -1,6 +1,5 @@
 # TaxJar Sales Tax API for PHP [![Packagist](https://img.shields.io/packagist/v/taxjar/taxjar-php.svg)](https://packagist.org/packages/taxjar/taxjar-php) [![Build Status](https://img.shields.io/travis/taxjar/taxjar-php.svg?style=flat-square)](https://travis-ci.org/taxjar/taxjar-php)
 
-<a href="https://developers.taxjar.com"><img src="https://www.taxjar.com/img/TJ_logo_color_office_png.png" alt="TaxJar" width="220"></a>
 
 Official PHP client for Sales Tax API v2. For the REST documentation, please visit [https://developers.taxjar.com/api](https://developers.taxjar.com/api/reference/?php).
 
@@ -18,7 +17,7 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 
 ## Requirements
 
-- PHP 5.5.0 and later.
+- PHP 8.0 and later.
 - [Guzzle](https://github.com/guzzle/guzzle) (included via Composer).
 
 ## Installation
