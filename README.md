@@ -13,7 +13,7 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 [Sandbox Environment](#sandbox-environment)<br>
 [Error Handling](#error-handling)<br>
 [Testing](#testing)<br>
-[API version](#specify-api-version)
+[API Version](#api-version)
 
 <hr>
 
@@ -499,7 +499,7 @@ To enable debug mode, set the following config parameter after authenticating:
 $client->setApiConfig('debug', true);
 ```
 
-## Specify API version
+## API version
 > By default, TaxJar's API will respond to requests with the [latest API version](https://developers.taxjar.com/api/reference/#changelog) when a version header is not present on the request.
 >
 > To request a specific API version, include the `x-api-version` header with the desired version string:
