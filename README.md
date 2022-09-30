@@ -497,3 +497,13 @@ To enable debug mode, set the following config parameter after authenticating:
 ```php
 $client->setApiConfig('debug', true);
 ```
+
+## Specify API version
+> By default, TaxJar's API will respond to requests with the [latest API version](https://developers.taxjar.com/api/reference/#changelog) when a version header is not present on the request.
+>
+> To request a specific API version, include the `x-api-version` header with the desired version string:
+```php
+$client->setApiConfig('headers', [
+  'x-api-version' => '2020-08-07'
+]);
+```
