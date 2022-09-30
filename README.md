@@ -12,7 +12,8 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 [Usage](#usage)<br>
 [Sandbox Environment](#sandbox-environment)<br>
 [Error Handling](#error-handling)<br>
-[Testing](#testing)
+[Testing](#testing)<br>
+[API version](#specify-api-version)
 
 <hr>
 
