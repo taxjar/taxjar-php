@@ -17,7 +17,7 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 
 ## Requirements
 
-- PHP 5.5.0 and later.
+- PHP 8.0 and later.
 - [Guzzle](https://github.com/guzzle/guzzle) (included via Composer).
 
 ## Installation
