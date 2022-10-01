@@ -1,7 +1,5 @@
 # TaxJar Sales Tax API for PHP [![Packagist](https://img.shields.io/packagist/v/taxjar/taxjar-php.svg)](https://packagist.org/packages/taxjar/taxjar-php) [![Build Status](https://img.shields.io/travis/taxjar/taxjar-php.svg?style=flat-square)](https://travis-ci.org/taxjar/taxjar-php)
 
-<a href="https://developers.taxjar.com"><img src="https://www.taxjar.com/img/TJ_logo_color_office_png.png" alt="TaxJar" width="220"></a>
-
 Official PHP client for Sales Tax API v2. For the REST documentation, please visit [https://developers.taxjar.com/api](https://developers.taxjar.com/api/reference/?php).
 
 <hr>
@@ -10,6 +8,7 @@ Official PHP client for Sales Tax API v2. For the REST documentation, please vis
 [Installation](#installation)<br>
 [Authentication](#authentication)<br>
 [Usage](#usage)<br>
+[Custom Options](#custom-options)<br>
 [Sandbox Environment](#sandbox-environment)<br>
 [Error Handling](#error-handling)<br>
 [Testing](#testing)
@@ -436,6 +435,27 @@ $client->setApiConfig('headers', [
   'X-TJ-Expected-Response' => 422
 ]);
 ```
+
+## Custom Options
+
+### Timeout
+> This package utilizes Guzzle which defaults to a request timeout value of 0s, allowing requests to remain pending for an indefinite period of time.
+>
+> You can modify this behavior by configuring the client with a `timeout` value in seconds.
+```php
+$client->setApiConfig('timeout', 30);
+```
+
+### API Version
+> By default, TaxJar's API will respond to requests with the [latest API version](https://developers.taxjar.com/api/reference/#changelog) when a version header is not present on the request.
+>
+> To request a specific API version, include the `x-api-version` header with the desired version string.
+```php
+$client->setApiConfig('headers', [
+  'x-api-version' => '2020-08-07'
+]);
+```
+
 
 ## Error Handling
 
