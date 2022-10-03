@@ -3,7 +3,7 @@ namespace TaxJar;
 
 class TaxJar
 {
-    const VERSION = '1.10.4';
+    const VERSION = '2.0.0';
     const DEFAULT_API_URL = 'https://api.taxjar.com';
     const SANDBOX_API_URL = 'https://api.sandbox.taxjar.com';
     const API_VERSION = 'v2';
