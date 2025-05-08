@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.1] - 2025-05-08
+- Handle error detail as array
+
 ## [2.0.0] - 2022-09-30
 - Adds PHP 8.x support and drops support for PHP <= 7.x
 
@@ -112,7 +115,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release.
 
-[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-php/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/taxjar/taxjar-php/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/taxjar/taxjar-php/compare/v1.10.4...v2.0.0
 [1.10.4]: https://github.com/taxjar/taxjar-php/compare/v1.10.3...v1.10.4
 [1.10.3]: https://github.com/taxjar/taxjar-php/compare/v1.10.2...v1.10.3

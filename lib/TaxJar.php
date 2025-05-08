@@ -3,7 +3,7 @@ namespace TaxJar;
 
 class TaxJar
 {
-    const VERSION = '2.0.0';
+    const VERSION = '2.0.1';
     const DEFAULT_API_URL = 'https://api.taxjar.com';
     const SANDBOX_API_URL = 'https://api.sandbox.taxjar.com';
     const API_VERSION = 'v2';
@@ -36,12 +36,22 @@ class TaxJar
             if ($response->getStatusCode() >= 400) {
                 $data = json_decode($response->getBody());
 
+                // Handle detail field which can be string or array
+                $detail = 'please try again';
+                if (isset($data->detail)) {
+                    if (is_array($data->detail)) {
+                        $detail = implode('; ', $data->detail);
+                    } else {
+                        $detail = $data->detail;
+                    }
+                }
+
                 throw new Exception(
                     sprintf(
                         '%s %s – %s',
                         $response->getStatusCode(),
                         isset($data->error) ? $data->error : 'something unexpected occurred',
-                        isset($data->detail) ? $data->detail : 'please try again'
+                        $detail
                     ),
                     $response->getStatusCode()
                 );
