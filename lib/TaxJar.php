@@ -76,7 +76,10 @@ class TaxJar
         }
 
         if ($index == 'headers') {
-            $value = array_merge($this->config[$index], $value);
+            // Guzzle 8 rejects non-string header values
+            $value = array_merge($this->config[$index], array_map(function ($header) {
+                return is_numeric($header) ? (string) $header : $header;
+            }, $value));
         }
 
         $this->config[$index] = $value;
